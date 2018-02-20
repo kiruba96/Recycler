@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
@@ -26,23 +27,24 @@ public class Main2Activity extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
 
+    GridLayoutManager gridLayoutManager;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         recyclerView=(RecyclerView)findViewById(R.id.recyclerView);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+//        layoutManager = new LinearLayoutManager(this);
+        gridLayoutManager = new GridLayoutManager(this,2);
+
+
+        recyclerView.setLayoutManager(gridLayoutManager );
 
         fb = new Firebase(url);
         Firebase.setAndroidContext(this);
-
-
         new CardRetreival_Task().execute();
-
-        System.out.println("bowww"+itemAdapter.size());
-        System.out.println("Bowwww"+itemArrayAdapter.getItemCount());
-        recyclerView.setAdapter(itemArrayAdapter);
 
     }
    public class CardRetreival_Task extends AsyncTask<String, Integer, String>{
